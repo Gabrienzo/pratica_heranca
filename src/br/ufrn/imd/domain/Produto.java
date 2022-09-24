@@ -1,5 +1,6 @@
 package br.ufrn.imd.domain;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 
@@ -11,9 +12,11 @@ public class Produto {
 	private String descricao;
 	private Date dataFabricacao;
 	
+	//construtor
 	public Produto() {
 	}
 	
+	//getters e setters
 	public String getNome() {
 		return nome;
 	}
@@ -41,10 +44,15 @@ public class Produto {
 	public Date getDataFabricacao() {
 		return dataFabricacao;
 	}
-	public void setDataFabricacao(Date dataFabricacao) {
-		this.dataFabricacao = dataFabricacao;
+	public void setDataFabricacao(int d, int m, int a) {
+		Calendar data = Calendar.getInstance();
+		data.set(Calendar.DATE, d);
+		data.set(Calendar.MONTH, (m-1));
+		data.set(Calendar.YEAR, a);
+		this.dataFabricacao = data.getTime();
 	}
 	
+	//hashcode e equals
 	@Override
 	public int hashCode() {
 		return Objects.hash(marca, nome);
@@ -55,12 +63,11 @@ public class Produto {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
 		Produto other = (Produto) obj;
 		return Objects.equals(marca, other.marca) && Objects.equals(nome, other.nome);
 	}
 
+	//to string
 	@Override
 	public String toString() {
 		return "Produto [nome = " + nome + ", preco = " + preco + ", marca = " + marca + ", descricao = " + descricao
